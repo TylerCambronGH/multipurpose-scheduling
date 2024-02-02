@@ -1,0 +1,59 @@
+{
+    "BUSINESSES": [
+        {
+            "businessId": 1,
+            "label": "R1"
+        }, {
+            "businessId": 2,
+            "label": "B2"
+        }
+    ],
+    "BUSINESS_CALENDARS": [
+        {
+            "calendarId": 1,
+            "businessId": 1,
+            "label": "R1-1",
+            "maxCustomers": 25
+        }, {
+            "calendarId": 2,
+            "businessId": 1,
+            "label": "R1-2",
+            "maxCustomers": 5
+        }, {
+            "calendarId": 3,
+            "businessId": 2,
+            "label": "B1-1",
+            "maxCustomers": 1
+        }, {
+            "calendarId": 4,
+            "businessId": 2,
+            "label": "B1-2",
+            "maxCustomers": 1
+        }, {
+            "calendarId": 5,
+            "businessId": 2,
+            "label": "B1-3",
+            "maxCustomers": 1
+        }
+    ],
+    "BUSINESS_APPOINTMENTS": [
+        {
+            "appointmentId": 1,
+            "businessId": 1,
+            "calendarId": 2,
+            "appointmentTime": "2024-09-10 18:30:00",
+            "scheduledTime": "2024-01-10 10:20:00",
+            "givenName": "Tyler Cambron",
+            "phoneNumber": "502-631-0119",
+            "emailAddress": "tylerc4017@gmail.com"
+        }
+    ],
+    "BUSINESS_EMPLOYEES": [
+        {
+            "userId": 1,
+            "businessId": 2,
+            "management": 0,
+            "calendars": "[4, 5]"
+        }
+    ]
+}
