@@ -15,6 +15,16 @@ function getCurrentBusiness() {
   return cBusiness
 }
 
+function getLoggingIn() {
+  let _loggingIn = false
+  let cURL = window.location.href
+  let urlSplit = cURL.split("/")
+  if (urlSplit[4] === 'login') {
+    _loggingIn = true
+  }
+  return _loggingIn 
+}
+
 export default function App(){
   // Get business
   currentBusiness = getCurrentBusiness()
@@ -41,22 +51,53 @@ export default function App(){
       </>
     )
   }
+
+  let businessData = GetTestBusinesses()[currentBusiness-1]
+  if (businessData === undefined) {
+    return (
+      <div>Invalid Page...</div>
+    )
+  }
   //
   // If at a business!
   //
-  return (
-    <>
-    <div>Home Page</div>
-    <LogIn/>
-    </>
-  );
+  if (businessLoggedIn) { // Employee Home Page
+    return (
+      <>
+      <div>Employee Home Page</div>
+      </>
+    )
+  }
+  if (getLoggingIn()) { // Log-In Page
+    let _cRef = window.location.href.split("/")
+    _cRef.pop()
+    let logInRef = _cRef[0]
+    for (let i=1; i < _cRef.length; i++) {
+      logInRef = "/" + _cRef[i]
+    }
+
+    return (
+      <>
+      <div>Log-In: { businessData.label }</div>
+      <a href={logInRef}>Cancel</a>
+      </>
+    )
+  } else { // Normal Home Page
+    return (
+      <>
+      <div>Home Page</div>
+      <HomeLogIn/>
+      </>
+    );
+  }
 }
 
-function LogIn() {
+function HomeLogIn() {
   let filler = <div></div>
-  if (businessLoggedIn === null) {
+  if (!businessLoggedIn) {
+    let _ref = "/" + currentBusiness + "/login"
     filler = <div>
-      <a href="/login">Log In</a> to the business as an employee here.
+      <a href={_ref}>Log In</a> to the business as an employee here.
     </div>
   }
   return (
@@ -65,3 +106,4 @@ function LogIn() {
     </>
   )
 }
+
