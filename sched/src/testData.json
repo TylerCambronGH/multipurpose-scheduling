@@ -43,9 +43,9 @@
             "calendarId": 2,
             "appointmentTime": "2024-09-10 18:30:00",
             "scheduledTime": "2024-01-10 10:20:00",
-            "givenName": "Tyler Cambron",
-            "phoneNumber": "502-631-0119",
-            "emailAddress": "tylerc4017@gmail.com"
+            "givenName": "John Doe",
+            "phoneNumber": "123-456-7890",
+            "emailAddress": "johndoe@email.com"
         }
     ],
     "BUSINESS_EMPLOYEES": [

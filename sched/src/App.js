@@ -1,6 +1,7 @@
-import './App.css';
-import { GetTestBusinesses } from './testData';
-import React from 'react';
+import './App.css'
+import { GetTestBusinesses } from './testData'
+import { buildCalendar, resetCalendarDate } from './buildCalendar'
+import React from 'react'
 
 let currentBusiness = null
 let businessLoggedIn = false
@@ -59,7 +60,7 @@ export default function App(){
     )
   }
   //
-  // If at a business!
+  // If at a business
   //
   if (businessLoggedIn) { // Employee Home Page
     return (
@@ -87,6 +88,7 @@ export default function App(){
       <>
       <div>Home Page</div>
       <HomeLogIn/>
+      <HomeCalendar/>
       </>
     );
   }
@@ -107,3 +109,11 @@ function HomeLogIn() {
   )
 }
 
+function HomeCalendar() {
+  resetCalendarDate()
+  return (
+    <>
+    {buildCalendar()}
+    </>
+  )
+}
