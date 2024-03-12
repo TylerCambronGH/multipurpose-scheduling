@@ -1,10 +1,10 @@
-import './App.css'
+import './App.css' 
+import './calendar.css'
 import { GetTestBusinesses } from './testData'
-import { buildCalendar, resetCalendarDate } from './buildCalendar'
+import { CalendarUI, resetCalendarDate } from './buildCalendar'
 import React from 'react'
 
-let currentBusiness = null
-let businessLoggedIn = false
+export let currentBusiness = null
 
 function getCurrentBusiness() {
   let cBusiness = null
@@ -16,17 +16,7 @@ function getCurrentBusiness() {
   return cBusiness
 }
 
-function getLoggingIn() {
-  let _loggingIn = false
-  let cURL = window.location.href
-  let urlSplit = cURL.split("/")
-  if (urlSplit[4] === 'login') {
-    _loggingIn = true
-  }
-  return _loggingIn 
-}
-
-export default function App(){
+export default function App() {
   // Get business
   currentBusiness = getCurrentBusiness()
   //
@@ -52,68 +42,95 @@ export default function App(){
       </>
     )
   }
-
   let businessData = GetTestBusinesses()[currentBusiness-1]
   if (businessData === undefined) {
     return (
       <div>Invalid Page...</div>
     )
   }
-  //
-  // If at a business
-  //
-  if (businessLoggedIn) { // Employee Home Page
-    return (
-      <>
-      <div>Employee Home Page</div>
-      </>
-    )
-  }
-  if (getLoggingIn()) { // Log-In Page
-    let _cRef = window.location.href.split("/")
-    _cRef.pop()
-    let logInRef = _cRef[0]
-    for (let i=1; i < _cRef.length; i++) {
-      logInRef = "/" + _cRef[i]
-    }
-
-    return (
-      <>
-      <div>Log-In: { businessData.label }</div>
-      <a href={logInRef}>Cancel</a>
-      </>
-    )
-  } else { // Normal Home Page
-    return (
-      <>
-      <div>Home Page</div>
-      <HomeLogIn/>
-      <HomeCalendar/>
-      </>
-    );
-  }
+  return <MainUI/>
 }
 
-function HomeLogIn() {
-  let filler = <div></div>
-  if (!businessLoggedIn) {
-    let _ref = "/" + currentBusiness + "/login"
-    filler = <div>
-      <a href={_ref}>Log In</a> to the business as an employee here.
-    </div>
+class MainUI extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      usernameInput: "",
+      passwordInput: "",
+      loggedIn: false,
+      management: false,
+      errorMessage: ""
+    }
+    this.buildBody = this.buildBody.bind(this)
+    this.onClickLogIn = this.onClickLogIn.bind(this)
+    this.onUserInputChange = this.onUserInputChange.bind(this)
+    this.onPWInputChange = this.onPWInputChange.bind(this)
+    this.state.body = this.buildBody()
   }
-  return (
-    <>
-    {filler}
+
+  buildBody() {
+    let businessData = GetTestBusinesses()[currentBusiness-1]
+    if (this.state.loggedIn) {
+      return <>
+        <div>Home Page</div>
+        <HomeCalendar/>
+      </>
+    } else {
+      return <>
+        <div>Log-In: { businessData.label }</div>
+        <label>User: <input type="text" name="username" onChange={ this.onUserInputChange }/></label>
+        <label>Password: <input type="password" name="password" onChange={ this.onPWInputChange }/></label>
+        <input type="submit" value="Log-In" onClick={ this.onClickLogIn }/>
+      </>
+    }
+  }
+
+  onUserInputChange(evt) {
+    this.setState({ usernameInput: evt.target.value })
+  }
+
+  onPWInputChange(evt) {
+    this.setState({ passwordInput: evt.target.value })
+  }
+
+  onClickLogIn() {
+    let loggedIn = logIn(this.state.usernameInput, this.state.passwordInput)
+    if (loggedIn) {
+      this.setState({
+        loggedIn: loggedIn,
+        management: false
+      })
+      this.setState({
+        body: this.buildBody()
+      })
+    } else {
+      this.setState({ errorMessage: "Invalid Log-In..." })
+    }
+  }
+
+  render() {
+    return <>
+      { this.state.body }
+      <p style={{"color": "red"}}> { this.state.errorMessage } </p>
     </>
-  )
+  }
 }
 
 function HomeCalendar() {
   resetCalendarDate()
   return (
-    <>
-    {buildCalendar()}
-    </>
+    <><div className="calendar">
+      <CalendarUI/>
+    </div></>
   )
+}
+
+function logIn(username, password) {
+  let loggedIn = false
+  let isMgmt = false
+  if (username === "admin" && password === "admin") {
+    loggedIn = true
+    isMgmt = true 
+  }
+  return loggedIn
 }

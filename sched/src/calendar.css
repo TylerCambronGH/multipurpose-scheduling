@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    background-color: rgb(20, 20, 20);
+    background-clip: unset;
+    background-image: linear-gradient(rgb(40, 40, 40), rgb(20, 20, 20));
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    color: white;
+    cursor: default;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.calendar {
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 10%;
+    padding: 0.75%;
+    display: block;
+    margin: 1%;
+    border-radius: .4vh;
+    color: white;
+}
+
+.calendar-head {
+    background-color: rgba(0, 0, 0, 0.2);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+    border-radius: .4vh;
+}
+
+.calendar-head>div {
+    padding: 2%;
+}
+
+.calendar-head>div:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.calendar-body {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-day {
+    margin: 1%;
+    padding: 1.25%;
+    text-align: right;
+}
+
+.calendar-day-head {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: .4vh;
+    padding: 1.25%;
+}
+
+.calendar-day-head:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.calendar-day-body {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    margin: 2.5%;
+    align-items: left;
+}
+
+.calendar-day-tab {
+    background-color: rgb(75, 125, 255);
+    text-align: center;
+    border-radius: .4vh;
+    padding: 5%;
+    margin-right: 5%;
+}
+
+.calendar-day-tab:hover {
+    background-color: rgb(125, 165, 255);;
+}
